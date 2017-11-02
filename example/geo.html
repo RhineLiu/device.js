@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" name="viewport"
+	      content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Example of Device.Geo</title>
+	<script src="../src/device.geo.js"></script>
+	<script>
+		if (window.location.protocol === "file:") {
+			alert("请在网页服务器上打开这个html！");
+		} else if (window.location.hostname !== "localhost" && window.location.protocol !== "https:") {
+			window.location.protocol = "https";
+		}
+	</script>
+</head>
+<body>
+
+<script>
+	var geo = new Device.Geo({
+		enableHighAccuracy: false
+	});
+	geo.get(function (pos) {
+		console.log(0, pos);
+	}, function (err) {
+		console.log(0, err)
+	});
+	var id1 = geo.watch(function (pos) {
+		console.log(1, pos);
+		geo.clearWatch(id1);
+	}, function (err) {
+		console.log(1, err)
+	});
+	geo.watch(function (pos) {
+		console.log(2, pos);
+	}, function (err) {
+		console.log(2, err)
+	});
+</script>
+
+</body>
+</html>
